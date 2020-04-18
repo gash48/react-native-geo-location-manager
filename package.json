@@ -1,0 +1,33 @@
+{
+  "name": "react-native-geo-location-manager",
+  "title": "React Native Geo Location Manager",
+  "version": "1.0.0",
+  "description": "A Native Module Which Enables Geolocation Tracking in IOS & Android. Uses ForegroundService(Android) & Significant Location Change(IOS)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gash48/react-native-geo-location-manager.git",
+    "baseUrl": "https://github.com/gash48/react-native-geo-location-manager"
+  },
+  "keywords": [
+    "react-native"
+  ],
+  "author": {
+    "name": "Gash",
+    "email": "gangster.thesecretgun@gmail.com"
+  },
+  "license": "MIT",
+  "licenseFilename": "LICENSE",
+  "readmeFilename": "README.md",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "react": "^16.9.0",
+    "react-native": "^0.61.5"
+  }
+}
