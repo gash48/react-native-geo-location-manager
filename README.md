@@ -1,17 +1,64 @@
 # react-native-geo-location-manager
 
-## Getting started
+React Native Geolocation Manager is a Cross Compatible Native Module that enables Geolocation tracking for both Android & IOS. Even when the app is closed.
+behind the scenes this module employs Significant Location Changes (For IOS) and a Foreground Location Service (For Android)
 
+## Important Note 
+
+For React Native >= 0.60 The Module Can be Automatically Linked
+For React Native < 0.60, The Module has to be manually Linked. Please Refer to React Native Docs
+
+## Installation & Requisites
+
+`$ yarn add react-native-geo-location-manager`
+or 
 `$ npm install react-native-geo-location-manager --save`
 
-### Mostly automatic installation
 
-`$ react-native link react-native-geo-location-manager`
+### IOS 
+`$ cd ios && pod install`
+
+For Permissions, make sure 'NSLocationAlwaysAndWhenInUseUsageDescription', 'NSLocationAlwaysUsageDescription', 'NSLocationWhenInUseUsageDescription' exists in Info.plist
+This Module However relies on "Location Always" as it works in the background 
+
+### Android
+In AndroidManifest.xml, make sure ure app contains
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/> --- For Foreground Service Permission 
+<service android:name="com.reactlibrary.GeoLocationService"/> ---- Foreground Service of The Module
 
 ## Usage
-```javascript
-import GeoLocationManager from 'react-native-geo-location-manager';
 
-// TODO: What to do with the module?
-GeoLocationManager;
+The Module is to be used differently for both IOS and Android
+
+### IOS
+```javascript
+import { NativeModules, NativeEventEmitter } from "react-native";
+
+const locationSvc = NativeModules.GeoLocationService;
+const EVENT_EMITTER = new NativeEventEmitter(locationSvc);
+
+async requestPermissions() {
+  const result = await locationSvc.requestPermissions("");
+  return result;
+}
+
+requestPermissions();
+EVENT_EMITTER..addListener(location.listOfPermissions[0], geoData => {
+  console.log(geoData);
+});
+```
+
+### ANDROID
+```javascript
+import { NativeModules, DeviceEventEmitter } from "react-native";
+
+// ------- For Starting The Service --------- //
+NativeModules.GeoLocationService.startService().then(() => {
+  DeviceEventEmitter.addListener("updateLocation", geoData => {
+    console.log(geoData);
+  });
+});
+
+// ------- For Stopping The Service --------- //
+NativeModules.GeoLocationService.stopService();
 ```
