@@ -29,12 +29,12 @@ import android.location.LocationProvider;
 import javax.annotation.Nullable;
 import android.annotation.TargetApi;
 
-public class GeoLocationService extends Service {
+public class GeoLocationManager extends Service {
   LocationManager locationManager = null;
   LocationListener locationListener = new LocationListener() {
     @Override
     public void onLocationChanged(Location location) {
-      GeoLocationService.this.sendMessage(location);
+      GeoLocationManager.this.sendMessage(location);
     }
 
     @Override
@@ -111,7 +111,7 @@ public class GeoLocationService extends Service {
       .setTicker(Constants.NOTIFICATION_CONTENT)
       .setWhen(System.currentTimeMillis());
 
-    Intent startIntent = new Intent(getApplicationContext(), GeoLocationService.class);
+    Intent startIntent = new Intent(getApplicationContext(), GeoLocationManager.class);
     PendingIntent contentIntent = PendingIntent.getActivity(this, Constants.PINTENT_REQUESTCODE, startIntent, 0);
     builder.setContentIntent(contentIntent);
     return builder.build();

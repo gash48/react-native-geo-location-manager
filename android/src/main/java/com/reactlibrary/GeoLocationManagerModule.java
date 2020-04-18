@@ -28,7 +28,7 @@ public class GeoLocationManagerModule extends ReactContextBaseJavaModule {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Location message = intent.getParcelableExtra("message");
-                MyLocationDataManagerModule.this.sendEvent(message);
+                GeoLocationManagerModule.this.sendEvent(message);
             }
         };
         LocalBroadcastManager.getInstance(getReactApplicationContext()).registerReceiver(geoLocationReceiver, new IntentFilter(Constants.MESSAGE_INTENT));
@@ -43,7 +43,7 @@ public class GeoLocationManagerModule extends ReactContextBaseJavaModule {
     public void startService(Promise promise) {
         try {
             Intent intent = new Intent(Constants.SERVICE_INTENT);
-            intent.setClass(this.getReactApplicationContext(), GeoLocationService.class);
+            intent.setClass(this.getReactApplicationContext(), GeoLocationManager.class);
             getReactApplicationContext().startService(intent);
         } catch (Exception e) {
             promise.reject(e);
@@ -56,7 +56,7 @@ public class GeoLocationManagerModule extends ReactContextBaseJavaModule {
     public void stopService(Promise promise) {
         try {
             Intent intent = new Intent(Constants.SERVICE_INTENT);
-            intent.setClass(this.getReactApplicationContext(), GeoLocationService.class);
+            intent.setClass(this.getReactApplicationContext(), GeoLocationManager.class);
             this.getReactApplicationContext().stopService(intent);
         } catch (Exception e) {
             promise.reject(e);
